@@ -1,40 +1,58 @@
 ----------------- Options ---------------
-             aspect_ratio: 1.0                           
-                batchSize: 4                             
+                batchSize: 1                             
+                    beta1: 0.5                           
           checkpoints_dir: ./checkpoints                 
-                 dataroot: ./datasets/MR2CT_pure         
-             dataset_mode: single                        
+           continue_train: True                          
+                 dataroot: ./datasets/MR2CT/             
+             dataset_mode: unaligned                     
               display_env: lib                           
+             display_freq: 100                           
                display_id: 1                             
+            display_ncols: 8                             
              display_port: 8097                          
            display_server: http://localhost              
           display_winsize: 256                           
+              epoch_count: 1                             
                  fineSize: 256                           
-                  gpu_ids: 3                             
-                 how_many: 50                            
+                  gpu_ids: 2                             
                 init_gain: 0.02                          
                 init_type: normal                        
                  input_nc: 1                             
-                  isTrain: False                         	[default: None]
-                 loadSize: 256                           
+                  isTrain: True                          	[default: None]
+                 lambda_A: 10.0                          
+                 lambda_B: 10.0                          
+              lambda_Self: 10.0                          
+              lambda_co_A: 2                             
+              lambda_co_B: 2                             
+          lambda_identity: 0.5                           
+                 loadSize: 286                           
+                       lr: 0.0002                        
+           lr_decay_iters: 50                            
+                lr_policy: lambda                        
          max_dataset_size: inf                           
-                    model: test                          
-             model_suffix: _A                            
+                    model: cycle_gan                     
                  nThreads: 4                             
                n_layers_D: 3                             
-                     name: self                          
+                     name: Self+Lcc_finetune             
                       ndf: 64                            
                       ngf: 64                            
+                    niter: 100                           
+              niter_decay: 100                           
                no_dropout: True                          
                   no_flip: False                         
+                  no_html: False                         
+                 no_lsgan: False                         
                      norm: instance                      
-                    ntest: inf                           
                 output_nc: 1                             
-                    phase: test                          
+                    phase: train                         
+                pool_size: 50                            
+               print_freq: 100                           
            resize_or_crop: resize_and_crop               
-              results_dir: ./results/                    
+          save_epoch_freq: 2                             
+         save_latest_freq: 5000                          
            serial_batches: False                         
                    suffix:                               
+         update_html_freq: 1000                          
                   verbose: False                         
           which_direction: AtoB                          
               which_epoch: latest                        

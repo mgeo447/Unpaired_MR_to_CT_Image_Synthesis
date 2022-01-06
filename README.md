@@ -6,19 +6,19 @@ This is our PyTorch implementation for Unpaired whole-body MR to CT Image Synthe
 
 The code was written by [Yunhao Ge](https://github.com/gyhandy) [Website](gyhandy.github.io) based on the structure of Cycle-GAN ([Jun-Yan Zhu](https://github.com/junyanz)).
 
-**Unpaired MR to CT Synthesis with Explicit Structural Constrained Adversarial Learning: [PDF](https://github.com/gyhandy/publication/blob/master/UNPAIRED%20MR%20TO%20CT%20SYNTHESIS%20WITH%20EXPLICIT%20STRUCTURAL%20CONSTRAINED%20ADVERSARIAL%20LEARNING.pdf) 
+**Unpaired MR to CT Synthesis with Explicit Structural Constrained Adversarial Learning: [PDF](https://github.com/gyhandy/publication/blob/master/UNPAIRED%20MR%20TO%20CT%20SYNTHESIS%20WITH%20EXPLICIT%20STRUCTURAL%20CONSTRAINED%20ADVERSARIAL%20LEARNING.pdf)
 
-**Unpaired Whole-body MR to CT Synthesis with Correlation Coefficient Constrained Adversarial Learning: [PDF](https://github.com/gyhandy/publication/raw/master/Unpaired%20whole-body%20MR%20to%20CT%20synthesis%20with%20correlation%20coefficient%20constrained%20adversarial%20learning-SPIE.pdf) 
+**Unpaired Whole-body MR to CT Synthesis with Correlation Coefficient Constrained Adversarial Learning: [PDF](https://github.com/gyhandy/publication/raw/master/Unpaired%20whole-body%20MR%20to%20CT%20synthesis%20with%20correlation%20coefficient%20constrained%20adversarial%20learning-SPIE.pdf)
 
 ## Abstract
 
-MR to CT image synthesis plays an important role in medical image analysis, and its applications included, but not limited to PET-MR attenuation correction and MR only radiation therapy planning.Recently, deep learning-based image synthesis techniques have achieved much success. However, most of the current methods require large scales of paired data from two different modalities, which greatly limits their usage as in some situation paired data is infeasible to obtain. Some efforts have been proposed to relax this constraint such as cycle-consistent adversarial networks (Cycle-GAN). However, the cycle consistency loss is an indirect structural similarity constraint of input and synthesized images, and it sometimes lead to inferior synthesized results.  
-Contribution  
-1 Proposed an explicit structural constrained adversarial learning method to improve both the realistic and precise of the synthesized images which were unique to cross-modality medical image mapping  
-2 Designed a novel correlation coefficient loss, which directly constrained the structural similarity between the input Magnetic Resonance (MR) and synthesized Computed Tomography (CT) image, to solve the mismatch of anatomical structures in synthesized CT images  
+MR to CT image synthesis plays an important role in medical image analysis, and its applications included, but not limited to PET-MR attenuation correction and MR only radiation therapy planning.Recently, deep learning-based image synthesis techniques have achieved much success. However, most of the current methods require large scales of paired data from two different modalities, which greatly limits their usage as in some situation paired data is infeasible to obtain. Some efforts have been proposed to relax this constraint such as cycle-consistent adversarial networks (Cycle-GAN). However, the cycle consistency loss is an indirect structural similarity constraint of input and synthesized images, and it sometimes lead to inferior synthesized results.
+Contribution
+1 Proposed an explicit structural constrained adversarial learning method to improve both the realistic and precise of the synthesized images which were unique to cross-modality medical image mapping
+2 Designed a novel correlation coefficient loss, which directly constrained the structural similarity between the input Magnetic Resonance (MR) and synthesized Computed Tomography (CT) image, to solve the mismatch of anatomical structures in synthesized CT images
 3 Developed a shape discriminator to incorporate the shape consistency information by extracting shape masks from two modality images
 to improve the synthesis quality. Gained substantial quality improvement especially in the surface shape and bone in whole body image
-mapping  
+mapping
 
 #### original_data
 <img src='imgs/show1.png' width="800px">
@@ -84,7 +84,7 @@ output of test-adapt or test_pipeline
 
 ### fill_hole.py
 
-Prepare training data for MR and CT mask 
+Prepare training data for MR and CT mask
 
 ### train.py
 
@@ -103,35 +103,27 @@ Make image synthesis with our trained model on multiple data
 
 ## Getting Started
 ### Installation
-- Install PyTorch 0.4, torchvision, and other dependencies from http://pytorch.org
-- Install python libraries [visdom](https://github.com/facebookresearch/visdom) and [dominate](https://github.com/Knio/dominate).
+
+- Install Poetry
+
+- Install all dependencies
 ```bash
-pip install visdom dominate
+poetry install
 ```
-- Alternatively, all dependencies can be installed by
-```bash
-pip install -r requirements.txt
-```
-- Clone this repo:
-```bash
-git clone https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
-cd pytorch-CycleGAN-and-pix2pix
-```
-- For Conda users, we include a script `./scripts/conda_deps.sh` to install PyTorch and other libraries.
 
 ###  train a explicit constraint model on MR to CT mapping
 
 For the dataset in training and testing, please create a new document 'datasets' and prepare the data by yourself.
 
 ```bash
-python train.py
+poetry run python train.py
 ```
 The trained model will be saved to : `./checkpoints/{model_name}`.
 
 ###  test our trained model
 
 ```bash
-python test-adapt.py
+poetry run python test-adapt.py
 ```
 The test results will be saved to : `./output/{model_name}`.
 
