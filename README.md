@@ -2,13 +2,45 @@
 
 # Unpaired-Cross-modality-Image-Synthesis
 
-This is our PyTorch implementation for Unpaired whole-body MR to CT Image Synthesis. It is still under active development.
+This is a PyTorch implementation for Unpaired whole-body MR to CT Image Synthesis.
 
 The code was written by [Yunhao Ge](https://github.com/gyhandy) [Website](gyhandy.github.io) based on the structure of Cycle-GAN ([Jun-Yan Zhu](https://github.com/junyanz)).
 
 **Unpaired MR to CT Synthesis with Explicit Structural Constrained Adversarial Learning: [PDF](https://github.com/gyhandy/publication/blob/master/UNPAIRED%20MR%20TO%20CT%20SYNTHESIS%20WITH%20EXPLICIT%20STRUCTURAL%20CONSTRAINED%20ADVERSARIAL%20LEARNING.pdf)
 
 **Unpaired Whole-body MR to CT Synthesis with Correlation Coefficient Constrained Adversarial Learning: [PDF](https://github.com/gyhandy/publication/raw/master/Unpaired%20whole-body%20MR%20to%20CT%20synthesis%20with%20correlation%20coefficient%20constrained%20adversarial%20learning-SPIE.pdf)
+
+## Getting Started
+### Installation
+
+1. Install Poetry
+2. Install deps using `poetry install`
+
+### Train a explicit constraint model on MR to CT mapping
+
+For the dataset in training and testing, please create a new folder 'datasets' and prepare the data.
+
+Run model training:
+
+```bash
+poetry run python train.py
+```
+
+Run model training (cpu only):
+
+```bash
+poetry run python train.py --gpu_ids -1
+```
+
+The trained model will be saved to : `./checkpoints/{model_name}`.
+
+### Test the trained model
+
+```bash
+poetry run python test-adapt.py
+```
+The test results will be saved to : `./output/{model_name}`.
+
 
 ## Abstract
 
@@ -35,6 +67,18 @@ mapping
 
 ## Code description
 
+### checkpoints
+
+Our trained model with unpaired whole-body MR and CT images
+
+- our best performance model with our method，`Self+Lcc_finetune`
+- trained model with only correlation coefficient loss，`cycle_Lcc`
+
+### CT_segmentation
+
+Training a shape extractor for our explicit constraint adversarial learning.
+Contains UNet, the shape extractor definition of structure of Unet
+
 ### data
 
 Medical raw data preprocess and dataset class
@@ -43,6 +87,11 @@ Medical raw data preprocess and dataset class
 - Dataset containing (MR, CT, MR_mask) when training，`unaligned_dataset.py`
 - Sigle dataset containing MR only when testing/mapping，`single_dataset.py`
 - Basic dataset class of Cycle-GAN，`base_dataset.py`
+
+### datasets
+
+- test original data from one patient with 4 modality MR images and unpaired CT images，`ZS18158187`
+- training dataset with trainA(MR), trainB(CT), maskA(MR_mask), testA(MR) and testB（CT)`MR2CT`
 
 ### models
 
@@ -56,26 +105,6 @@ Models define and structures
 ### options
 
 Parameter settings when training and testing
-
-### datasets
-
-- test original data from one patient with 4 modality MR images and unpaired CT images，`ZS18158187`
-- training dataset with trainA(MR), trainB(CT), maskA(MR_mask), testA(MR) and testB（CT)`MR2CT`
-
-### CT_segmentation
-
-Training a shape extractor for our explicit constraint adversarial learning
-
-### Unet
-
-Shape extractor defination of structure of Unet
-
-### checkpoints
-
-Our trained model with unpaired whole-body MR and CT images
-
-- our best performance model with our method，`Self+Lcc_finetune`
-- trained model with only correlation coefficient loss，`cycle_Lcc`
 
 ### output
 
@@ -99,36 +128,8 @@ Make a image synthesis with our trained model on one patient
 
 Make image synthesis with our trained model on multiple data
 
-
-
-## Getting Started
-### Installation
-
-- Install Poetry
-
-- Install all dependencies
-```bash
-poetry install
-```
-
-###  train a explicit constraint model on MR to CT mapping
-
-For the dataset in training and testing, please create a new document 'datasets' and prepare the data by yourself.
-
-```bash
-poetry run python train.py
-```
-The trained model will be saved to : `./checkpoints/{model_name}`.
-
-###  test our trained model
-
-```bash
-poetry run python test-adapt.py
-```
-The test results will be saved to : `./output/{model_name}`.
-
 ## Citation
-If you use this code for your research, please cite our papers.
+If this code is used for your research, please cite our papers.
 ```
 @inproceedings{ge2019unpaired,
   title={Unpaired whole-body MR to CT synthesis with correlation coefficient constrained adversarial learning},
